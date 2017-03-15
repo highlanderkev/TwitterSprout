@@ -1,4 +1,3 @@
-var HtmlWebpackPlugin = require('html-webpack-plugin');
 module.exports = {
   devtool: "#inline-source-map",
   entry: "./src",
@@ -17,8 +16,8 @@ module.exports = {
     }, 
     {
       test: /\.scss/,
-      loaders: ['style', 'css', 'sass']
-    }, 
+      loaders: ['style-loader','css-loader','sass-loader']
+    },
     {
       test: /\.html$/,
       loader: 'file-loader?name=[name].[ext]'
@@ -27,6 +26,5 @@ module.exports = {
       test: /\.(png|jpg|gif|ico)$/,
       loader: "file-loader?name=img/[name].[ext]"
     }],
-  },
-  //plugins: [new HtmlWebpackPlugin()]
+  }
 };

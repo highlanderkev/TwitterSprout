@@ -1,6 +1,5 @@
-"use strict";
-
 import React from "react";
+import {SearchForm} from './components/searchForm/index.jsx';
 
 export class App extends React.Component {
     constructor(props){
@@ -11,7 +10,7 @@ export class App extends React.Component {
     render(){
         return (
             <div>
-                Test
+                <SearchForm/>
             </div>
             );
     }
