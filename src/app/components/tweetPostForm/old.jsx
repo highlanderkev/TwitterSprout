@@ -2,6 +2,7 @@ import React from "react";
 import $ from 'jquery';
 import AutoComplete from 'material-ui/AutoComplete';
 import MenuItem from 'material-ui/MenuItem';
+import RaisedButton from 'material-ui/RaisedButton';
 
 const BASE_URL = '/twitter/user/search';
 
@@ -35,13 +36,10 @@ export class SearchForm extends React.Component {
             tweet: value
         });
         this.checkTweetForUserName(value);
-        // this.setState({
-        //     dataSource: [value, value + value, value + value + value,],
-        // });
-    };
+    }
 
     handleSubmit(event) {
-        alert(`Your tweet was posted: ${this.state.tweet}`);
+        alert(`Tweet - "${this.state.tweet}" - was successfully posted.`);
         event.preventDefault();
     }
     
@@ -83,7 +81,6 @@ export class SearchForm extends React.Component {
     }
 
     render() {
-        // let users = this.state.users;
         return (
             <form onSubmit={this.handleSubmit}>
                 <div className="form-group">
@@ -99,24 +96,11 @@ export class SearchForm extends React.Component {
                         onUpdateInput={this.handleUpdateInput}
                         filter={AutoComplete.noFilter}
                         open={this.state.openAutoComplete}
-                        floatingLabelText="Post Tweet"
-                        fullWidth={true}
-                    />
+                        floatingLabelText="Compose Tweet"
+                        fullWidth={true}/>
+                    <RaisedButton label="Post" type="submit" onTouchTap={this.handleSubmit}/>
                 </div>
             </form>
         );
     }
 }
-
-// <div className="row">
-//     <ul>
-//         {this.state.users.map((user) =>
-//         <li key={user.name}>
-//             <a href={user.name} target='_blank'>
-//                 <img src={user.profile_image_url_https} alt="user-profile-image"/>
-//                 {user.screen_name}
-//             </a>
-//         </li>
-//         )}
-//     </ul>
-// </div>
