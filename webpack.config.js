@@ -5,9 +5,6 @@ module.exports = {
     path: __dirname + "/dist",
     filename: "bundle.js"
   },
-  resolve: {
-      extensions: ['.js', '.jsx', '.json']
-  },
   module: {
     loaders: [{
       test: /\.(js|jsx)$/,
@@ -15,7 +12,7 @@ module.exports = {
       loader: 'babel-loader',
     }, 
     {
-      test: /\.scss/,
+      test: /\.(css|scss|sass)$/,
       loaders: ['style-loader','css-loader','sass-loader']
     },
     {
