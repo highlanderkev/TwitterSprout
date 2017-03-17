@@ -3,7 +3,6 @@ import React from "react";
 export class InputGroup extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {};
     }
 
     render() {
