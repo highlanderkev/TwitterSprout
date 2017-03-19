@@ -9,54 +9,69 @@ import {UserSelectionUtils} from './userSelectionUtils/index.jsx';
 export class TwitterPostForm extends React.Component {
     constructor(props) {
         super(props);
-        this.state = { tweet: '', tweetArray: [], userSuggestions: [], openAutoComplete: false};
-        this.toggleAutoCompleteSelection = this.toggleAutoCompleteSelection.bind(this);
+        this.state = { tweet: '', wordArray: [], userSuggestions: [], openAutoComplete: false};
         this.handleSelectedItemSuggestion = this.handleSelectedItemSuggestion.bind(this);
         this.handleTweetInput = this.handleTweetInput.bind(this);
+        this.handlePost = this.handlePost.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.queryUsernameLookupService = this.queryUsernameLookupService.bind(this);
     }
+    
+    handleSelectedItemSuggestion(selection, index){
+        console.log('handleSelectedItemSuggestion', selection, index);
+    }
 
-    toggleAutoCompleteSelection(open){
-        if(open){
-            this.setState({
-                openAutoComplete: true
-            });
+    handleTweetInput(text, dataSource, params){
+        let tweet = text;
+        let wordArray = [];
+        
+        console.log("handleTweetInput", text, dataSource, params);
+        
+        // when user types/inputs text
+        if(params.source === "change"){
+            wordArray = UserSelectionUtils.buildWordArray(tweet, this.state.wordArray);
+        }
+        
+        // when user clicks/selects from autocomplete dropdown
+        if(params.source === "touchTap"){
+            wordArray = UserSelectionUtils.updateWordArrayWithSelection(tweet, this.state.wordArray);
+            tweet = UserSelectionUtils.joinWords(wordArray);
+        }
+        
+        this.setState({ 
+            tweet: tweet,
+            wordArray: wordArray 
+        });
+        
+        let unresolvedUsername = UserSelectionUtils.getUnresolvedUsername(wordArray);
+        if(unresolvedUsername){
+            this.queryUsernameLookupService(unresolvedUsername.replace('@', ''));
         }else{
             this.setState({
+                userSuggestions: [],
                 openAutoComplete: false
             });
         }
+        this.refs.tweetInput.focus();
     }
     
-    handleSelectedItemSuggestion(chosenRequest, index){
-        console.log('handleSelectedItemSuggestion', chosenRequest, index);
-        //1. update tweet with username
-        //2. mark tweetArray entry as resolved
-        //3. see if there are any other unresolved usernames
-    }
-
-    handleTweetInput(tweetInput){
-        let tweetArray = UserSelectionUtils.parseTweetForUserNames(tweetInput, this.state.tweetArray);
-        console.log(`tweet: ${tweetInput}, tweetArray: ${tweetArray}`);
-        this.setState({ tweet: tweetInput, tweetArray: tweetArray });
-        let unResolvedUsername = UserSelectionUtils.getFirstUnResolvedUserName(tweetArray);
-        if(unResolvedUsername){
-            this.queryUsernameLookupService(unResolvedUsername.replace('@', ''));
-        }
-    }
-    
-    handleSubmit(event) {
-        alert(`Tweet "${this.state.tweet}"was successfully posted.`);
+    handlePost(event) {
+        alert(`Tweet "${this.state.tweet}" was successfully posted.`);
         event.preventDefault();
     }
     
-    queryUsernameLookupService(query){
+    handleSubmit(event){
+        event.preventDefault();
+        event.stopPropagation();
+    }
+    
+    queryUsernameLookupService(query = ''){
         UserSearchService.queryUsername(query).done((data) => {
             if(data && data.hasOwnProperty('users')){
                 let userSuggestions = UserSelectionUtils.mapRawUsersToListSuggestions(data.users);
-                console.log("userSuggestions", userSuggestions);
-                this.setState({ userSuggestions: userSuggestions, openAutoComplete: true});
+                this.setState({ userSuggestions: userSuggestions, openAutoComplete: true });
+            }else{
+                this.setState({ userSuggestions: [], openAutoComplete: false });
             }
         });
     }
@@ -67,12 +82,14 @@ export class TwitterPostForm extends React.Component {
                 <FormGroup>
                     <InputGroup>
                         <TweetInput 
+                            ref="tweetInput"
                             tweet={this.state.tweet} 
                             userSuggestions={this.state.userSuggestions}
                             onTweetInput={this.handleTweetInput}
+                            onSelection={this.handleSelectedItemSuggestion}
                             openAutoComplete={this.state.openAutoComplete}/>
                         <PostTweetButton
-                            onTouchTap={this.handleSubmit}/>
+                            onTouchTap={this.handlePost}/>
                     </InputGroup>
                 </FormGroup>
             </form>
