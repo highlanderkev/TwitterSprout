@@ -22,6 +22,12 @@ Builds dist folder.
 
 - To start the Twitter lookup server
 
-Navigate to [http://localhost:3001/](http://localhost:3001/) to ensure the local server is responding to requests. If the URL loads, attempt to make a sample user search request http://localhost:3001/twitter/user/search?username=chicago
+## Navigate to main html page
+
+Open browser and navigate to [http://localhost:8080/](http://localhost:8080/). Should see a form for composing a tweet.
+
+## Make Sample user search request 
+
+http://localhost:8080/twitter/user/search?username=chicago
 
 

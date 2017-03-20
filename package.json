@@ -1,12 +1,12 @@
 {
-  "name": "twitter-compose-server",
+  "name": "twitter--custom-form-post",
   "version": "0.1.0",
-  "description": "Twitter Screenname Autocomplete Server",
+  "description": "Twitter Screenname Autocomplete Server + Client Post form",
   "scripts": {
     "start": "node server.js",
     "build": "webpack"
   },
-  "author": "Sprout Social",
+  "author": "Sprout Social + Kevin Westropp",
   "license": "MIT",
   "devDependencies": {
     "babel": "^6.23.0",
