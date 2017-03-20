@@ -3,6 +3,7 @@ import {InputGroup} from '../inputGroup/index.jsx';
 import {FormGroup} from '../formGroup/index.jsx';
 import {TweetInput} from './tweetInput/index.jsx';
 import {PostTweetButton} from './postTweetButton/index.jsx';
+import {TweetCounter} from './tweetCounter/index.jsx';
 import {UserSearchService} from './userSearchService/index.js';
 import {UserSelectionUtils} from './userSelectionUtils/index.jsx';
 
@@ -89,7 +90,12 @@ export class TwitterPostForm extends React.Component {
                             onSelection={this.handleSelectedItemSuggestion}
                             openAutoComplete={this.state.openAutoComplete}/>
                         <PostTweetButton
-                            onTouchTap={this.handlePost}/>
+                            onTouchTap={this.handlePost}
+                            tweet={this.state.tweet}/>
+                    </InputGroup>
+                    <InputGroup>
+                        <TweetCounter
+                            tweet={this.state.tweet}/>
                     </InputGroup>
                 </FormGroup>
             </form>

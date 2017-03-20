@@ -2,12 +2,7 @@ import React from "react";
 import MenuItem from 'material-ui/MenuItem';
 
 export const STYLE = {
-//   paper: {
-//     display: 'inline-block',
-//     float: 'left',
-//     margin: '16px 32px 16px 0',
-//   },
-  rightIcon: {
+  ICON: {
     textAlign: 'center',
     lineHeight: '24px',
   },
@@ -16,15 +11,15 @@ export const STYLE = {
 const wordWasPreviouslyResolved = (word, index, previousWordArray) => {
     return previousWordArray && previousWordArray[index] && previousWordArray[index].word === word &&
         previousWordArray[index].hasOwnProperty('isResolved') ? previousWordArray[index].isResolved : false;
-}
+};
 
 const wordStartsWithAtSymbol = (word = '') => {
     return word.includes('@') && word.startsWith('@');
-}
+};
 
 const toWords = (word) => {
     return word.word;
-}
+};
 
 export const UserSelectionUtils = {
     buildWordArray: (tweet = '', previousWordArray = []) => {
@@ -56,9 +51,6 @@ export const UserSelectionUtils = {
         let words = wordArray.map(toWords);
         return words.join(' ');
     },
-    /**
-     * @returns {string} or null
-     */
     getUnresolvedUsername: (wordArray = []) => {
         let result = null;
         let unResolvedUserNames = wordArray.filter((word) => {
@@ -76,7 +68,7 @@ export const UserSelectionUtils = {
         return users.map((user) => {
             return {
                 text: `@${user.screen_name}`,
-                value: (<MenuItem primaryText={`@${user.screen_name}`} secondaryText={user.name} leftIcon={<img src={user.profile_image_url_https} style={STYLE.rightIcon}/>}/>)
+                value: (<MenuItem primaryText={`@${user.screen_name}`} secondaryText={user.name} leftIcon={<img src={user.profile_image_url_https} style={STYLE.ICON}/>}/>)
             };
         });
     }
