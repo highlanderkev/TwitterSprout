@@ -19,14 +19,12 @@ export class TwitterPostForm extends React.Component {
     }
     
     handleSelectedItemSuggestion(selection, index){
-        console.log('handleSelectedItemSuggestion', selection, index);
+        // no-op, case is already handled in handleTweetInput.
     }
 
     handleTweetInput(text, dataSource, params){
         let tweet = text;
         let wordArray = [];
-        
-        console.log("handleTweetInput", text, dataSource, params);
         
         // when user types/inputs text
         if(params.source === "change"){

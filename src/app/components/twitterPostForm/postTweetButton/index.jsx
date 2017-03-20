@@ -20,7 +20,7 @@ export class PostTweetButton extends React.Component {
     }
     
     isValid(){
-        return this.props.tweet.length < 141;
+        return this.props.tweet.length < 141 && this.props.tweet.length > 0;
     }
 
     render() {
