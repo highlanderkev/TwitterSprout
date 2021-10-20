@@ -1,5 +1,5 @@
 const Twitter = require('twitter');
-const express = require('express');
+// const express = require('express');
 
 const app = express();
 
@@ -11,20 +11,20 @@ const client = new Twitter({
 });
 
 //CORS support
-var allowCrossDomain = function(req, res, next) {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Headers", "X-Requested-With, X-HTTP-Method-Override, Content-Type, Accept");
-  next();
-};
-app.use(allowCrossDomain);
+// var allowCrossDomain = function(req, res, next) {
+//   res.header("Access-Control-Allow-Origin", "*");
+//   res.header("Access-Control-Allow-Headers", "X-Requested-With, X-HTTP-Method-Override, Content-Type, Accept");
+//   next();
+// };
+// app.use(allowCrossDomain);
 
-app.use('/', express.static('dist'));
+// app.use('/', express.static('dist'));
 
-app.get('/', (req, res) => {
-	res.status(200).send({
-		data: 'Successful request',
-	});
-});
+// app.get('/', (req, res) => {
+// 	res.status(200).send({
+// 		data: 'Successful request',
+// 	});
+// });
 
 app.get('/twitter/user/search', (req, res) => {
 	const username = req.query.username;
@@ -38,8 +38,8 @@ app.get('/twitter/user/search', (req, res) => {
 	});
 });
 
-app.listen(process.env.PORT || 8080, () => {
-	/* eslint-disable no-console */
-	console.log('listening on port ', process.env.PORT);
-	/* eslint-enable no-console */
-});
+// app.listen(process.env.PORT || 8080, () => {
+// 	/* eslint-disable no-console */
+// 	console.log('listening on port ', process.env.PORT || 8080);
+// 	/* eslint-enable no-console */
+// });
